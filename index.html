@@ -1,9 +1,22 @@
 <!DOCTYPE html>
-<html>
-<head>
-<body>
+<style>
+	html {
+		font: 24px "Helvetica Neue", Helvetica, Arial, sans-serif;
+	}
+	#FPS {
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin: 0;
+		width: 3em;
+		padding: 0.5em;
+		background: rgb(200, 200, 200);
+		text-align: center;
+		border-bottom-left-radius: 0.3em;
+	}
+</style>
 <canvas id="canvas" width=200 height=200></canvas>
-<h1 id="FPS"></h1>
+<div id="FPS"></div>
 <script src="fancycam.js"></script>
 <script src="slitscan.js"></script>
 <script>
