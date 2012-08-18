@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<body>
+<canvas id="canvas" width=200 height=200></canvas>
+<h1 id="FPS"></h1>
+<script src="fancycam.js"></script>
+<script src="slitscan.js"></script>
+<script>
+
+var fpsNode = document.createTextNode('');
+document.getElementById('FPS').appendChild(fpsNode);
+
+new Fancycam(SlitScanFilter, document.getElementById('canvas'), function(fps){
+	fpsNode.nodeValue = fps;
+});
+
+</script>
