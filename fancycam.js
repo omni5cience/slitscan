@@ -27,12 +27,7 @@ Fancycam.getUserMedia =
 ;
 Fancycam.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
 Fancycam.prototype.onstream = function(stream){
-	var i = this.filter.workers;
 	this.workers = [];
-	while (i--) {
-		this.workers.push(new Worker(this.filter.workerSrc));
-	}
-
 	this.videoel = document.createElement('video');
 	this.videoel.src = Fancycam.URL.createObjectURL(stream);
 	this.videoel.play();
@@ -43,17 +38,22 @@ Fancycam.prototype.onstream = function(stream){
 
 	this.FPS = new FPSTracker;
 
-	this.videoel.addEventListener('play', this.onplay.bind(this));
+	this.videoel.addEventListener('playing', this.onplaying.bind(this));
 };
-Fancycam.prototype.onplay = function(){
+Fancycam.prototype.onplaying = function(){
+	var i, worker;
+
 	this.width = this.inputcanvas.width = this.outputcanvas.width = this.videoel.videoWidth;
 	this.height = this.inputcanvas.height = this.outputcanvas.height = this.videoel.videoHeight;
 
-	this.workers.forEach(function(worker, i){
+	i = this.filter.workers;
+	while (i--) {
+		worker = new Worker(this.filter.workerSrc);
+		this.workers.push(worker);
 		var size = (this.height / this.workers.length);
 		var top = size * i;
 		worker.addEventListener('message', this.onworkermessage.bind(this, worker, i, size, top));
-	}.bind(this));
+	};
 };
 Fancycam.prototype.onworkermessage = function(worker, n, size, top, e){
 	switch (e.data.name) {
