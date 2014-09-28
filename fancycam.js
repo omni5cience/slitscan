@@ -17,7 +17,7 @@ function Fancycam(Filter, outputcanvas, onfps){
 		this.outputcanvas = outputcanvas;
 		this.filter = new Filter();
 		this.onfps = onfps;
-		Fancycam.getUserMedia.call(navigator, { video: true, audio: false }, this.onstream.bind(this));
+		Fancycam.getUserMedia.call(navigator, { video: true, audio: false }, this.onstream.bind(this), console.warn.bind(console));
 }
 Fancycam.getUserMedia =
 	navigator.getUserMedia ||
